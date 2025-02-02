@@ -22,7 +22,7 @@ Clone the repository:
 
   git clone https://github.com/Ashik-byte/php-event-management-system.git
   
-  cd Ollyo-Event-Management-System
+  cd php-event-management-system
 
 Import the database:
 
