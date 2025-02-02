@@ -756,15 +756,13 @@ $(document).ready(function() {
     
         let formData = new FormData(this);  // This will include both text fields and files
         formData.append("purpose", "event_creation");
-    
+        $('#add_event_form')[0].reset();
+        $('#event_add_modal').modal('hide');
         handleAjaxRequestOnFormData(
             "../core/admin/manage-event.php",
             "POST",
             formData,  // Send the formData directly (without converting to JSON)
-            function(data) {
-                $('#add_event_form')[0].reset();
-                $('#event_add_modal').modal('hide');
-    
+            function(data) {    
                 Swal.fire({
                     icon: 'success',
                     title: 'Event Created',
@@ -774,8 +772,6 @@ $(document).ready(function() {
                 });
             },
             function(xhr) {
-                $('#add_event_form')[0].reset();
-                $('#event_add_modal').modal('hide');
                 let errorMessage = "An error occurred while processing your request.";
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     errorMessage = xhr.responseJSON.message;
@@ -835,21 +831,16 @@ $(document).ready(function() {
             }
         }
 
-        let formData = new FormData(this);  // This will include both text fields and files
-        formData.append("purpose", "event_update");  // Set the purpose as update
-    
-        // Optional: If you want to update the event ID dynamically
-        // let eventId = $('#event_id').val();  // Get event ID (assumed input field)
-        // formData.append("event_id", eventId);
-    
+        let formData = new FormData(this); 
+        formData.append("purpose", "event_update"); 
+        
+        $('#edit_event_form')[0].reset();
+        $('#event_edit_modal').modal('hide');
         handleAjaxRequestOnFormData(
             "../core/admin/manage-event.php",
             "POST",
             formData,  // Send the formData directly (without converting to JSON)
-            function(data) {
-                $('#edit_event_form')[0].reset();
-                $('#event_edit_modal').modal('hide');
-    
+            function(data) {    
                 Swal.fire({
                     icon: 'success',
                     title: 'Event Updated',
@@ -859,8 +850,6 @@ $(document).ready(function() {
                 });
             },
             function(xhr) {
-                $('#edit_event_form')[0].reset();
-                $('#event_edit_modal').modal('hide');
                 let errorMessage = "An error occurred while processing your request.";
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     errorMessage = xhr.responseJSON.message;
@@ -935,18 +924,17 @@ $(document).ready(function() {
             attendeeEmail: attendeeEmail,
             attendeeEventId: attendeeEventId
         };
+        $('#add_attendee_name').val('');
+        $('#add_attendee_email').val('');
+        $('#add_attendee_event_id').val('');
 
+        $('#modal_add_attendee').modal('hide');
+        
         handleAjaxRequest(
             "../core/admin/manage-attendees.php",
             "POST",
             payload,
             function(data) { 
-                $('#add_attendee_name').val('');
-                $('#add_attendee_email').val('');
-                $('#add_attendee_event_id').val('');
-
-                $('#modal_add_attendee').modal('hide');
-
                 Swal.fire({
                     icon: 'success',
                     title: 'Attendee Created',
@@ -956,12 +944,6 @@ $(document).ready(function() {
                 });
             },
             function(xhr) {
-                $('#add_attendee_name').val('');
-                $('#add_attendee_email').val('');
-                $('#add_attendee_event_id').val('');
-
-                $('#modal_add_attendee').modal('hide');
-
                 let errorMessage = "An error occurred while processing your request.";
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     errorMessage = xhr.responseJSON.message;
@@ -1010,19 +992,19 @@ $(document).ready(function() {
             attendeeEventId: attendeeEventId,
             attendeePrevEvent: attendeePrevEvent
         };
+        
+        $('#edit_attendee_id').val('');
+        $('#edit_attendee_name').val('');
+        $('#edit_attendee_email').val('');
+        $('#edit_attendee_event_id').val('');
 
+        $('#modal_edit_attendee').modal('hide');
+        
         handleAjaxRequest(
             "../core/admin/manage-attendees.php",
             "POST",
             payload,
             function(data) {
-                $('#edit_attendee_id').val('');
-                $('#edit_attendee_name').val('');
-                $('#edit_attendee_email').val('');
-                $('#edit_attendee_event_id').val('');
-
-                $('#modal_edit_attendee').modal('hide');
-                
                 Swal.fire({
                     icon: 'success',
                     title: 'Attendee Updated',
@@ -1031,14 +1013,7 @@ $(document).ready(function() {
                     $("#order_data").DataTable().ajax.reload();
                 });
             },
-            function(xhr) {
-                $('#edit_attendee_id').val('');
-                $('#edit_attendee_name').val('');
-                $('#edit_attendee_email').val('');
-                $('#edit_attendee_event_id').val('');
-
-                $('#modal_edit_attendee').modal('hide');
-                
+            function(xhr) {                
                 let errorMessage = "An error occurred while processing your request.";
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     errorMessage = xhr.responseJSON.message;
@@ -1114,7 +1089,9 @@ $(document).ready(function() {
             alert("New passwords do not match!");
             return;
         }
-
+        $("#changePasswordModal").modal("hide");
+        $("#changePasswordForm")[0].reset();
+        
         $.ajax({
             url: "../core/admin/update-password.php",
             type: "POST",
@@ -1124,8 +1101,6 @@ $(document).ready(function() {
             },
             success: function(response) {
                 alert(response);
-                $("#changePasswordModal").modal("hide");
-                $("#changePasswordForm")[0].reset();
             }
         });
     });
