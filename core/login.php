@@ -29,8 +29,6 @@ $stmt = $conn->prepare("SELECT id, username, email, password_hash, is_admin, is_
 $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 $stmt->execute();
 
-$conn = null;
-
 if($stmt->rowCount() > 0){
     $row = $stmt->fetch();
     // var_dump($row); exit;
@@ -80,10 +78,11 @@ if($stmt->rowCount() > 0){
     ];
 
     $jwt = createJWT($payload);
-    
+    $conn = null;
     echo json_encode(["status" => "success", "data" => $jwt]);
     exit;
 }else {
+    $conn = null;
     echo json_encode(["status" => "error", "message" => "Incorrect email or password."]);
     exit;
 }
