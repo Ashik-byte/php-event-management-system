@@ -6,7 +6,7 @@ define("AUTHOR_WEBSITE", "https://marketingindigitalworld.com");
 
 // Change these two as per your setup
 define('ADMIN_URL', 'http://127.0.0.1/php_projects/Ollyo-Event-Management-System');
-define('USER_EMAIL', 'bitmashik@yahoo.com');
+define('USER_EMAIL', '');
 
 // Db config
 define('DB_HOST', '127.0.0.1');
