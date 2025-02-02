@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $newPasswordHash = $hasher->HashPassword($newPassword);
     $stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
     $stmt->execute([$newPasswordHash, $userId]);
-
+    $conn = null;
     echo "Password updated successfully";
     exit;
 }
