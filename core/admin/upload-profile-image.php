@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["profileImage"])) {
         $stmt->execute([$relativeFilePath, $userId]);
 
         $_SESSION["image_url"] = $relativeFilePath;
-        $conn = null;
         echo "Profile image updated successfully";
     } else {
         echo "Error uploading file.";
